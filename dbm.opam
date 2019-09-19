@@ -1,4 +1,4 @@
-opam-version: "1.2"
+opam-version: "2.0"
 version: "1.2"
 synopsis: "A fork of the official DBM package"
 description: """A fork of the DBM package, ported to dune and fixed so that it compiles in the Jane eco-system without warnings
@@ -8,7 +8,7 @@ maintainer: "Michael Bacarella <michael.bacarella@gmail.com>"
 authors: ["Francois Rouaix"]
 homepage: "https://github.com/mbacarella/dbm"
 bug-reports: "https://github.com/mbacarella/dbm/issues"
-dev-repo: "https://github.com/mbacarella/dbm.git"
+dev-repo: "git+https://github.com/mbacarella/dbm.git"
 license: "LGPL-v2 with OCaml linking exception"
 build: [
   [make "all"]
