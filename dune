@@ -7,20 +7,12 @@
    (c_flags         (:include c-flags.sexp))
    (c_library_flags (:include c-library-flags.sexp))
    (wrapped         false)
-   (libraries       base core))
+   (libraries       base core)
+   (inline_tests)
+   (preprocess     (pps ppx_inline_test)))
 
 (rule
   (targets c-flags.sexp c-library-flags.sexp)
    (deps    configure)
    (mode    fallback)
    (action  (run "sh" "-c" "./configure --quiet")))
-
-(executable
-  (name      testdbm)
-   (modules   testdbm)
-   (libraries dbm))
-
-(alias
-  (name   runtest)
-   (deps   testdbm.exe)
-   (action (run ${<})))

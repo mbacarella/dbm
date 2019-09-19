@@ -36,6 +36,3 @@ install:
 clean:
 	$(RM) -f *.sexp
 	$(JBUILDER) clean
-
-test:
-	$(JBUILDER) runtest --force

@@ -69,3 +69,26 @@ let delete_dbm fn =
     with Sys_error _ -> ()
   end;
   Core.Sys.remove (fn ^ ".pag")
+
+(* The rest of this file is a set of functional tests. *)
+open! Core
+
+let optfind d k = find d k
+
+let%test _ =
+  let dbname = "testdatabase" in
+  let db = opendbm dbname [Dbm_rdwr;Dbm_create] 0o666 in
+  add db "one" "un";
+  add db "two" "dos";
+  replace db "two" "deux";
+  add db "three" "trois";
+  assert (String.(=) (optfind db "one" ) "un");
+  assert (String.(=) (optfind db "two") "deux");
+  assert (String.(=) (optfind db "three") "trois");
+  (*assert (let _val = optfind db "four" in false with Not_found_s _ -> true);*)
+  close db;
+  let db = opendbm "testdatabase" [Dbm_rdonly] 0 in
+  iter (fun k d -> printf "key '%s' -> data '%s'\n" k d) db;
+  close db;
+  delete_dbm dbname;
+  true
