@@ -1,10 +1,13 @@
 opam-version: "1.2"
 version: "1.2"
-maintainer: "https://github.com/ocaml/opam-repository/issues"
+synopsis: "fork of official dbm"
+description: """A fork of the DBM bindings, ported to dune and fixed so that it compiles in the Jane eco-system without warnings.
+Original https://github.com/ocaml/dbm"""
+maintainer: "Michael Bacarella <michael.bacarella@gmail.com>"
 authors: ["Francois Rouaix"]
-homepage: "https://github.com/ocaml/dbm"
-bug-reports: "https://github.com/ocaml/dbm/issues"
-dev-repo: "https://github.com/ocaml/dbm.git"
+homepage: "https://github.com/mbacarella/dbm"
+bug-reports: "https://github.com/mbacarella/dbm/issues"
+dev-repo: "https://github.com/mbacarella/dbm.git"
 license: "LGPL-v2 with OCaml linking exception"
 build: [
   [make "all"]
