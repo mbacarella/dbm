@@ -2,6 +2,8 @@
 
 ## OVERVIEW
 
+This is a fork of the "official" CamlDBM library.  I started this fork to get rid of some build errors that happen if you try to use it in the Jane ecosystem.  The major changes are porting to dune and very lightly using Base/Core.
+
 This OCaml library is a binding to the NDBM/GDBM Unix "databases" -- more exactly, persistent key-value stores.
 
 See the file `dbm.mli` for documentation of the programming inteface.
