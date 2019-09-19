@@ -1,8 +1,9 @@
 opam-version: "1.2"
 version: "1.2"
-synopsis: "fork of official dbm"
-description: """A fork of the DBM bindings, ported to dune and fixed so that it compiles in the Jane eco-system without warnings.
-Original https://github.com/ocaml/dbm"""
+synopsis: "A fork of the official DBM package"
+description: """A fork of the DBM package, ported to dune and fixed so that it compiles in the Jane eco-system without warnings
+
+Forked from https://github.com/ocaml/dbm"""
 maintainer: "Michael Bacarella <michael.bacarella@gmail.com>"
 authors: ["Francois Rouaix"]
 homepage: "https://github.com/mbacarella/dbm"

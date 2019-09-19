@@ -6,7 +6,8 @@
    (c_names         cldbm)
    (c_flags         (:include c-flags.sexp))
    (c_library_flags (:include c-library-flags.sexp))
-   (wrapped         false))
+   (wrapped         false)
+   (libraries       base core))
 
 (rule
   (targets c-flags.sexp c-library-flags.sexp)

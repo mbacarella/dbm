@@ -11,23 +11,23 @@
 (*                                                                     *)
 (***********************************************************************)
 
-let optfind d k = try Some(Dbm.find d k) with Not_found -> None
+open! Core
+
+let optfind d k = Dbm.find d k
 
 let _ =
-  let db = Dbm.opendbm "testdatabase" [Dbm.Dbm_rdwr;Dbm.Dbm_create] 0o666 in
+  let dbname = "testdatabase" in
+  let db = Dbm.opendbm dbname [Dbm.Dbm_rdwr;Dbm.Dbm_create] 0o666 in
   Dbm.add db "one" "un";
   Dbm.add db "two" "dos";
   Dbm.replace db "two" "deux";
   Dbm.add db "three" "trois";
-  assert (optfind db "one" = Some "un");
-  assert (optfind db "two" = Some "deux");
-  assert (optfind db "three" = Some "trois");
-  assert (optfind db "four" = None);
+  assert (String.(=) (optfind db "one" ) "un");
+  assert (String.(=) (optfind db "two") "deux");
+  assert (String.(=) (optfind db "three") "trois");
+  assert (try let _val = optfind db "four" in false with Not_found_s _ -> true);
   Dbm.close db;
   let db = Dbm.opendbm "testdatabase" [Dbm.Dbm_rdonly] 0 in
-  Dbm.iter (fun k d -> Printf.printf "key '%s' -> data '%s'\n" k d) db;
-  Dbm.close db
-
-
-  
-  
+  Dbm.iter (fun k d -> printf "key '%s' -> data '%s'\n" k d) db;
+  Dbm.close db;
+  Dbm.delete_dbm dbname

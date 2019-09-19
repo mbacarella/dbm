@@ -11,6 +11,8 @@
 (*                                                                     *)
 (***********************************************************************)
 
+open Base
+
 (* $Id: dbm.ml 11156 2011-07-27 14:17:02Z doligez $ *)
 
 type t
@@ -34,14 +36,21 @@ let opendbm file flags mode =
     have to call it in order to do anything *)
 
 external close : t -> unit = "caml_dbm_close"
-external find : t -> string -> string = "caml_dbm_fetch"
+external raw_find : t -> string -> string = "caml_dbm_fetch"
+
+let find t key =
+  try
+    raw_find t key
+  with Caml.Not_found ->
+    raise (Not_found_s (Sexp.Atom key))
+
 external add : t -> string -> string -> unit = "caml_dbm_insert"
 external replace : t -> string -> string -> unit = "caml_dbm_replace"
 external remove : t -> string -> unit = "caml_dbm_delete"
 external firstkey : t -> string = "caml_dbm_firstkey"
 external nextkey : t -> string = "caml_dbm_nextkey"
 
-let _ = Callback.register_exception "dbmerror" (Dbm_error "")
+let _ = Caml.Callback.register_exception "dbmerror" (Dbm_error "")
 
 (* Usual iterator *)
 let iter f t =
@@ -49,6 +58,14 @@ let iter f t =
       None -> ()
     | Some k ->
         f k (find t k);
-        walk (try Some(nextkey t) with Not_found -> None)
+        walk (try Some(nextkey t) with Caml.Not_found -> None)
   in
-  walk (try Some(firstkey t) with Not_found -> None)
+  walk (try Some(firstkey t) with Caml.Not_found -> None)
+
+let delete_dbm fn =
+  begin
+    try Core.Sys.remove (fn ^ ".dir")
+    (* A .dir file is not always created. *)
+    with Sys_error _ -> ()
+  end;
+  Core.Sys.remove (fn ^ ".pag")

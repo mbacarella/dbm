@@ -43,10 +43,10 @@ val opendbm : string -> open_flag list -> int -> t
 external close : t -> unit = "caml_dbm_close"
 (** Close the given descriptor. *)
 
-external find : t -> string -> string = "caml_dbm_fetch"
+val find : t -> string -> string
 (** [find db key] returns the data associated with the given
    [key] in the database opened for the descriptor [db].
-   Raise [Not_found] if the [key] has no associated data. *)
+   Raise [Not_found_s key] if the [key] has no associated data. *)
 
 external add : t -> string -> string -> unit = "caml_dbm_insert"
 (** [add db key data] inserts the pair ([key], [data]) in
@@ -77,3 +77,7 @@ val iter : (string -> string -> unit) -> t -> unit
 (** [iter f db] applies [f] to each ([key], [data]) pair in
    the database [db]. [f] receives [key] as first argument
    and [data] as second argument. *)
+
+val delete_dbm : string -> unit
+(** [delete_dbm fn] removes the underlying dbm files
+    [fn ^ ".pag"] and [fn ^ ".dir"]. *)
