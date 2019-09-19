@@ -10,10 +10,7 @@ homepage: "https://github.com/mbacarella/dbm"
 bug-reports: "https://github.com/mbacarella/dbm/issues"
 dev-repo: "git+https://github.com/mbacarella/dbm.git"
 license: "LGPL-v2 with OCaml linking exception"
-build: [
-  [make "all"]
-  [make "test"]
-]
+build: ["dune" "build" "-p" name "-j" jobs]
 depends: ["jbuilder" {build & >= "1.0+beta17"}]
 depexts: [
   [["debian"] ["libgdbm-dev"]]

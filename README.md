@@ -17,17 +17,13 @@ This library used to be included in the standard OCaml distribution. This is the
 
 ## INSTALLATION
 
-* Run the "configure" script by typing
-       ./configure
-
 * Build the library:
-       make all
+       dune build
 
 * Test the library:
-       make test
+       dune runtest
 
-* Install the library:
-       sudo make install
+* Install the library with opam pin
 
 
 ## USAGE
@@ -42,6 +38,3 @@ In native code:
 ## LICENSE
 
 This Library is distributed under the terms of the GNU Library General Public License version 2, with a special exception allowing unconstrained static linking.  See file LICENSE for details.
-
-
-     
